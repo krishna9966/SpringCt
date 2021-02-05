@@ -3,19 +3,19 @@ from .models import Employee, Company
 
 
 class CompanySerializer(serializers.ModelSerializer):
-    # users = serializers.StringRelatedField(many=True)
+    
     class Meta:
         model = Company
-        fields = ['companyname', 'city']
-# class Companyrelated(serializers.RelatedField):
-#     def to_representation(self, value):
-#         users = EmployeeSerializer()
-#         return super().to_representation(value)
+        fields = '__all__'
+
 
 class EmployeeSerializer(serializers.ModelSerializer):
-    # company = CompanySerializer(many=True, read_only=True)
 
     class Meta:
         model = Employee
-        # fields = ['username', 'company', 'email', 'phone']
         fields = '__all__'
+
+    def to_representation(self, instance):
+        response = super().to_representation(instance)
+        response["company"] = CompanySerializer(instance.company).data
+        return response

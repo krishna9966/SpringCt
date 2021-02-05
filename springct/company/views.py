@@ -29,7 +29,15 @@ class CompanyList(APIView):
 class EmployeeList(APIView):
     def get(self, request, *args, **kwargs):
         employees = Employee.objects.all()
+        print("--------------------------------")
+        # print(employees)
+        print("--------------------------------")
         serializer = EmployeeSerializer(employees, many=True)
+        print("--------------------------------")
+        # print(serializer)
+        print("--------------------------------")
+        # print(serializer.data)
+        print("--------------------------------")
 
         return Response(serializer.data)
 
@@ -50,15 +58,16 @@ class CompanyDetail(APIView):
 
     def get(self, request, pk, format=None):
         company = self.get_object(pk)
-        user = Employee.objects.filter(pk=pk)
-        # print(user.__dict__)
-        for i in user:
-            print(i.username)
-            print(i.email)
-            print(i.phone)
+        print(company)
 
         serializer = CompanySerializer(company)
-        return Response(serializer.data)
+        employee = Employee.objects.filter(company=pk)
+        emp_serializer = EmployeeSerializer(employee, many=True)
+        print(emp_serializer.data)
+        empdata = serializer.data
+        empdata['employees'] = emp_serializer.data
+        # print(serializer.data)
+        return Response(empdata)
 
     def delete(self, request, pk, format=None):
         company = self.get_object(pk)
@@ -75,7 +84,8 @@ class EmployeeDetail(APIView):
 
     def get(self, request, pk, format=None):
         employee = self.get_object(pk)
-        # user = Employee.objects.filter(pk=pk)
-
+        print(employee)
+        
+        print(employee)
         serializer = EmployeeSerializer(employee)
         return Response(serializer.data)

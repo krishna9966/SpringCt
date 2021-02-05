@@ -8,6 +8,7 @@ class Company(models.Model):
 
     companyname = models.CharField(max_length=50)
     city = models.CharField(max_length=50)
+    # employee = models.ForeignKey('Employee', related_name='employees', on_delete=models.CASCADE)
 
     # TODO: Define fields here
 
@@ -15,7 +16,7 @@ class Company(models.Model):
         """Meta definition for Company."""
 
         verbose_name = 'Company'
-        verbose_name_plural = 'Companys'
+        verbose_name_plural = 'Companies'
 
     def __str__(self):
         """Unicode representation of Company."""

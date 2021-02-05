@@ -18,7 +18,7 @@ from django.urls import path
 from company import views
 
 urlpatterns = [
-    # path('admin/', admin.site.urls),
+    path('admin/', admin.site.urls),
     path('listusers/', views.EmployeeList.as_view(), name='listusers'),
     path('addusers/', views.EmployeeList.as_view(), name='listusers'),
     path('getuser/<int:pk>/', views.EmployeeDetail.as_view(), name='getuser'),
